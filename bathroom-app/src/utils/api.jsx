@@ -1,7 +1,5 @@
 import axios from "axios";
 
-const base_url = "https://www.refugerestrooms.org/api";
-
 // pulls the api data when a user submits the form
 export const fetchBathroom = (longitude, latitude) => {
   return axios.get(

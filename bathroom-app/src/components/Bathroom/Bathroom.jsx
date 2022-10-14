@@ -30,10 +30,3 @@ function Bathroom({ video, setLongitude, setLatitude }) {
 }
 
 export default Bathroom;
-
-{
-  /* <p>{details.directions}</p> */
-}
-{
-  /* <p>Reviews: {details.upvote}</p> */
-}

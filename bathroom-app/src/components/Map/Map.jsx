@@ -10,7 +10,6 @@ export default function Map({
   zoom,
 }) {
   const mapContainerElement = useRef();
-  console.log(mapContainerElement);
 
   useEffect(() => {
     const mapStyle =

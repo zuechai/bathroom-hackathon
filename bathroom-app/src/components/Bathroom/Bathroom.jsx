@@ -1,21 +1,37 @@
-function Bathroom({ video }) {
+function Bathroom({ video, setLongitude, setLatitude }) {
+  const bathroomHandler = (lon, lat) => {
+    setLongitude(lon);
+    setLatitude(lat);
+  };
+
   return (
     <div className="restrooms">
       <ul className="restrooms__list">
         {video.map((details) => {
           return (
-            <li key={details.id} className="restrooms__item">
+            <li
+              key={details.id}
+              className="restrooms__item"
+              style={{ cursor: "pointer" }}
+              onClick={() =>
+                bathroomHandler(details.longitude, details.latitude)
+              }
+            >
               <h3 className="restrooms__header">{details.name}</h3>
               <p>{details.street}</p>
-              {/* <p>{details.directions}</p> */}
-              {/* <p>Reviews: {details.upvote}</p> */}
             </li>
           );
         })}
-        )
       </ul>
     </div>
   );
 }
 
 export default Bathroom;
+
+{
+  /* <p>{details.directions}</p> */
+}
+{
+  /* <p>Reviews: {details.upvote}</p> */
+}

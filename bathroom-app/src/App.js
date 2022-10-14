@@ -16,10 +16,10 @@ function App() {
   const myAPIKey = "32307f34890140109ba99c2a2351665a";
 
   useEffect(() => {
-    fetchBathroom().then((resp) => {
+    fetchBathroom(longitude, latitude).then((resp) => {
       setBathroom(resp.data);
     });
-  }, []);
+  }, [longitude, latitude]);
 
   if (!bathroom) {
     return <p>Loading...</p>;
@@ -32,7 +32,7 @@ function App() {
   };
 
   const mapIsReadyCallback = (map) => {
-    console.log(map);
+    return map;
   };
 
   return (
@@ -59,7 +59,11 @@ function App() {
           </div>
         </div>
       </div>
-      <Bathroom video={bathroom} />
+      <Bathroom
+        video={bathroom}
+        setLongitude={setLongitude}
+        setLatitude={setLatitude}
+      />
     </main>
   );
 }
@@ -68,14 +72,20 @@ export default App;
 
 /*
   * TODO
-  - Create form that takes the user's address
-  - call Refuge Restroom API to get a list of restrooms
-    - map out a list of restrooms returned based on query input
-      - add a onCLick() that will:
-        - pull longitude and latitude from the return objects and pass as args to queryHandler(long, lat)
-        - first object returned in the array will appear on the map
-  - look into autocomplete form using Geoapify
+  +- Create form that takes the user's address
+  +- call Refuge Restroom API to get a list of restrooms
+    +- map out a list of restrooms returned based on query input
+      +- add a onCLick() that will:
+        +- pull longitude and latitude from the return objects and pass as args to queryHandler(long, lat)
+        +- first object returned in the array will appear on the map
+	- add icon/pinpoint on restroom location
   - look into using the device's current location and how difficult something like that is to implement
   - look into MapLibre GL docs for how to use panTo or other animation methods to create a better UI
-  - this is probably mroe than enough, but the more I've looked into the more I'm excited about this silly app
+*/
+
+/*
+- send lon and lat to restroom api
+- map list of restrooms
+  - adding onClick to center on that point
+- 
 */

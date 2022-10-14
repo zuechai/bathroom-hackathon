@@ -10,8 +10,6 @@ import "./App.scss";
 
 function App() {
   const [bathroom, setBathroom] = useState([]);
-
-  const [mapIsReady, setMapIsReady] = useState(false);
   const [longitude, setLongitude] = useState(-79.3954524);
   const [latitude, setLatitude] = useState(43.6457996);
   const [zoom, setZoom] = useState(17);
@@ -34,8 +32,6 @@ function App() {
   };
 
   const mapIsReadyCallback = (map) => {
-    // map && setMapIsReady(true);
-    // console.log(mapIsReady);
     console.log(map);
   };
 
@@ -63,7 +59,6 @@ function App() {
           </div>
         </div>
       </div>
-      {/* TODO Replace with a new component to map the restrooms received from submitting the form */}
       <Bathroom video={bathroom} />
     </main>
   );

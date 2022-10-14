@@ -10,6 +10,7 @@ function App() {
   const [longitude, setLongitude] = useState(-79.3954524);
   const [latitude, setLatitude] = useState(43.6457996);
   const [zoom, setZoom] = useState(17);
+  const myAPIKey = "32307f34890140109ba99c2a2351665a";
 
   const queryHandler = (long, lat) => {
     setLongitude(long);
@@ -29,10 +30,11 @@ function App() {
         <h1 className="map__header">
           I don't know about you, but I need a bathroom: QUICK!
         </h1>
-        <Form queryHandler={queryHandler} />
+        <Form myAPIKey={myAPIKey} queryHandler={queryHandler} />
         <div className="map__container">
           <div className="map__wrapper">
             <Map
+              myAPIKey={myAPIKey}
               mapIsReadyCallback={mapIsReadyCallback}
               longitude={longitude}
               latitude={latitude}

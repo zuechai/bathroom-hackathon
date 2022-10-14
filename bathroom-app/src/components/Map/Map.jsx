@@ -1,17 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "./Map.scss";
 import maplibre from "maplibre-gl";
 
-export default function Map({ mapIsReadyCallback, longitude, latitude, zoom }) {
-  let mapContainer;
+export default function Map({
+  myAPIKey,
+  mapIsReadyCallback,
+  longitude,
+  latitude,
+  zoom,
+}) {
+  const mapContainerElement = useRef();
+  console.log(mapContainerElement);
 
   useEffect(() => {
-    const myAPIKey = "32307f34890140109ba99c2a2351665a";
     const mapStyle =
       "https://maps.geoapify.com/v1/styles/osm-liberty/style.json";
 
+    const divElement = mapContainerElement.current;
+
     const map = new maplibre.Map({
-      container: mapContainer,
+      container: divElement,
       style: `${mapStyle}?apiKey=${myAPIKey}`,
       center: [longitude, latitude],
       zoom: zoom,
@@ -21,6 +29,8 @@ export default function Map({ mapIsReadyCallback, longitude, latitude, zoom }) {
   });
 
   return (
-    <div className="map-container" ref={(el) => (mapContainer = el)}></div>
+    <>
+      <div className="map-container" ref={mapContainerElement} />
+    </>
   );
 }

@@ -16,10 +16,8 @@ export default function Map({
     const mapStyle =
       "https://maps.geoapify.com/v1/styles/osm-liberty/style.json";
 
-    const divElement = mapContainerElement.current;
-
     const map = new maplibre.Map({
-      container: divElement,
+      container: mapContainerElement.current,
       style: `${mapStyle}?apiKey=${myAPIKey}`,
       center: [longitude, latitude],
       zoom: zoom,

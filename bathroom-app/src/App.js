@@ -19,8 +19,8 @@ function App() {
   };
 
   const mapIsReadyCallback = (map) => {
-    map && setMapIsReady(true);
-    console.log(mapIsReady);
+    // map && setMapIsReady(true);
+    // console.log(mapIsReady);
     console.log(map);
   };
 
@@ -30,7 +30,12 @@ function App() {
         <h1 className="map__header">
           I don't know about you, but I need a bathroom: QUICK!
         </h1>
-        <Form myAPIKey={myAPIKey} queryHandler={queryHandler} />
+        <Form
+          myAPIKey={myAPIKey}
+          queryHandler={queryHandler}
+          setLongitude={setLongitude}
+          setLatitude={setLatitude}
+        />
         <div className="map__container">
           <div className="map__wrapper">
             <Map

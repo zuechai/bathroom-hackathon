@@ -1,0 +1,19 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #61dbfb;
+  height: 100vh;
+}
+
+.map {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  &__wrapper {
+    height: 75vh;
+    width: 75vw;
+  }
+}

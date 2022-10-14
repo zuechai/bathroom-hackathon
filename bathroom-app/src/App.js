@@ -2,58 +2,74 @@
 import React, { useState } from "react";
 import Map from "./components/Map/Map";
 import Form from "./components/Form/Form";
+import Bathroom from "./components/Bathroom/Bathroom";
+import { fetchBathroom } from "./utils/api";
+import { useEffect } from "react";
 
-import "./App.css";
+import "./App.scss";
 
 function App() {
-  const [mapIsReady, setMapIsReady] = useState(false);
-  const [longitude, setLongitude] = useState(-79.3954524);
-  const [latitude, setLatitude] = useState(43.6457996);
-  const [zoom, setZoom] = useState(17);
+    const [bathroom, setBathroom] = useState([]);
 
-  const queryHandler = (long, lat) => {
-    setLongitude(long);
-    setLatitude(lat);
-    setZoom(10);
-  };
+    const [mapIsReady, setMapIsReady] = useState(false);
+    const [longitude, setLongitude] = useState(-79.3954524);
+    const [latitude, setLatitude] = useState(43.6457996);
+    const [zoom, setZoom] = useState(17);
 
-  const mapIsReadyCallback = (map) => {
-    map && setMapIsReady(true);
-    console.log(mapIsReady);
-    console.log(map);
-  };
+    useEffect(() => {
+        fetchBathroom().then((resp) => {
+            setBathroom(resp.data);
+        });
+    }, []);
 
-  return (
-    <main className="main">
-      <div className="map">
-        <h1 className="map__header">
-          I don't know about you, but I need a bathroom: QUICK!
-        </h1>
-        <Form queryHandler={queryHandler} />
-        <div className="map__container">
-          <div className="map__wrapper">
-            <Map
-              mapIsReadyCallback={mapIsReadyCallback}
-              longitude={longitude}
-              latitude={latitude}
-              zoom={zoom}
-            />
-          </div>
-        </div>
-      </div>
-      {/* TODO Replace with a new component to map the restrooms received from submitting the form */}
-      <div className="restrooms">
-        <h3 className="restrooms__header">Nearest restrooms:</h3>
-        <ul className="restrooms__list">
-          <li className="restrooms__item">1</li>
-          <li className="restrooms__item">2</li>
-          <li className="restrooms__item">3</li>
-          <li className="restrooms__item">4</li>
-          <li className="restrooms__item">5</li>
-        </ul>
-      </div>
-    </main>
-  );
+    if (!bathroom) {
+        return <p>Loading...</p>;
+    }
+
+    const queryHandler = (long, lat) => {
+        setLongitude(long);
+        setLatitude(lat);
+        setZoom(10);
+    };
+
+    const mapIsReadyCallback = (map) => {
+        map && setMapIsReady(true);
+        console.log(mapIsReady);
+        console.log(map);
+    };
+
+    return (
+        <main className="main">
+            <div className="map">
+                <h1 className="map__header">
+                    I don't know about you, but I need a bathroom: QUICK!
+                </h1>
+                <Form queryHandler={queryHandler} />
+                <div className="map__container">
+                    <div className="map__wrapper">
+                        <Map
+                            mapIsReadyCallback={mapIsReadyCallback}
+                            longitude={longitude}
+                            latitude={latitude}
+                            zoom={zoom}
+                        />
+                    </div>
+                </div>
+            </div>
+            {/* TODO Replace with a new component to map the restrooms received from submitting the form */}
+            <div className="restrooms">
+                <h3 className="restrooms__header">Nearest restrooms:</h3>
+                <ul className="restrooms__list">
+                    <li className="restrooms__item">1</li>
+                    <li className="restrooms__item">2</li>
+                    <li className="restrooms__item">3</li>
+                    <li className="restrooms__item">4</li>
+                    <li className="restrooms__item">5</li>
+                </ul>
+            </div>
+            <Bathroom video={bathroom} />
+        </main>
+    );
 }
 
 export default App;

@@ -6,6 +6,7 @@ import Bathroom from "./components/Bathroom/Bathroom";
 import { fetchBathroom } from "./utils/api";
 import { useEffect } from "react";
 
+import logo from "./assests/black-logo.png";
 import "./App.scss";
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
     <main className="main">
       <div className="map">
         <h1 className="map__header">
-          I don't know about you, but I need a bathroom: QUICK!
+          <img src={logo} alt="Spot-a-potty" className="map__logo" />
         </h1>
         <Form
           myAPIKey={myAPIKey}

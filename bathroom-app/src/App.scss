@@ -1,8 +1,7 @@
 .main {
   display: flex;
   justify-content: space-evenly;
-  // gap: 4rem;
-  background-color: #61dbfb;
+  background-color: #000;
   height: 100vh;
 }
 
@@ -17,6 +16,10 @@
     font-size: 3.6rem;
   }
 
+  &__logo {
+    height: 20rem;
+  }
+
   &__container {
     display: flex;
     justify-content: center;
@@ -24,9 +27,9 @@
   }
 
   &__wrapper {
-    height: 75vh;
-    width: 75vw;
-    border-radius: 25rem;
+    height: 60vh;
+    width: 50vw;
+    border-radius: 0.4rem;
     overflow: hidden;
   }
 }

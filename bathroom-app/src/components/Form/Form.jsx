@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
+import "./Form.scss";
+
 export default function Form({ myAPIKey, setLongitude, setLatitude }) {
   const [address, setAddress] = useState("460 King St W, Toronto");
   const [addressIsValid, setAddressIsValid] = useState(false);
@@ -33,11 +35,13 @@ export default function Form({ myAPIKey, setLongitude, setLatitude }) {
   }, [addressIsValid, geocodingUrl]);
 
   return (
-    <form ref={formEl} onSubmit={submitHandler}>
-      <div>
-        <label htmlFor="address">Find a bathroom...</label>
-        <input type="address" name="address" />
-        <button>Geocode</button>
+    <form className="form" ref={formEl} onSubmit={submitHandler}>
+      <div className="form__wrapper">
+        <label className="form__label" htmlFor="address">
+          Find a bathroom...
+        </label>
+        <input className="form__input" type="address" name="address" />
+        <button className="form__btn">Geocode</button>
       </div>
     </form>
   );

@@ -1,0 +1,23 @@
+.form {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__label {
+  }
+
+  &__input {
+    padding: 1rem;
+  }
+
+  &__btn {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    background-color: #000;
+    border: solid 2px #fff;
+  }
+}

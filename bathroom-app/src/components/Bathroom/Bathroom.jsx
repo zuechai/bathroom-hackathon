@@ -1,3 +1,5 @@
+import "./Bathroom.scss";
+
 function Bathroom({ video, setLongitude, setLatitude }) {
   const bathroomHandler = (lon, lat) => {
     setLongitude(lon);

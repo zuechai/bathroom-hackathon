@@ -15,6 +15,7 @@ function App() {
   const [longitude, setLongitude] = useState(-79.3954524);
   const [latitude, setLatitude] = useState(43.6457996);
   const [zoom, setZoom] = useState(17);
+  const myAPIKey = "32307f34890140109ba99c2a2351665a";
 
   useEffect(() => {
     fetchBathroom().then((resp) => {
@@ -33,8 +34,8 @@ function App() {
   };
 
   const mapIsReadyCallback = (map) => {
-    map && setMapIsReady(true);
-    console.log(mapIsReady);
+    // map && setMapIsReady(true);
+    // console.log(mapIsReady);
     console.log(map);
   };
 
@@ -44,10 +45,16 @@ function App() {
         <h1 className="map__header">
           I don't know about you, but I need a bathroom: QUICK!
         </h1>
-        <Form queryHandler={queryHandler} />
+        <Form
+          myAPIKey={myAPIKey}
+          queryHandler={queryHandler}
+          setLongitude={setLongitude}
+          setLatitude={setLatitude}
+        />
         <div className="map__container">
           <div className="map__wrapper">
             <Map
+              myAPIKey={myAPIKey}
               mapIsReadyCallback={mapIsReadyCallback}
               longitude={longitude}
               latitude={latitude}

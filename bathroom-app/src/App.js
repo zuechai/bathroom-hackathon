@@ -78,7 +78,7 @@ export default App;
       +- add a onCLick() that will:
         +- pull longitude and latitude from the return objects and pass as args to queryHandler(long, lat)
         +- first object returned in the array will appear on the map
-	- add icon/pinpoint on restroom location
+	+- add icon/pinpoint on restroom location
   - look into using the device's current location and how difficult something like that is to implement
   - look into MapLibre GL docs for how to use panTo or other animation methods to create a better UI
 */

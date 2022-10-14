@@ -10,10 +10,16 @@ export default function Map({
   zoom,
 }) {
   const mapContainerElement = useRef();
+  const markerEl = useRef();
 
   useEffect(() => {
     const mapStyle =
       "https://maps.geoapify.com/v1/styles/osm-liberty/style.json";
+
+    const marker = new maplibre.Marker(markerEl.current, {
+      anchor: "bottom",
+      offset: [0, 6],
+    });
 
     const map = new maplibre.Map({
       container: mapContainerElement.current,
@@ -22,12 +28,16 @@ export default function Map({
       zoom: zoom,
     });
 
+    map.panTo([longitude, latitude]);
+    marker.setLngLat([longitude, latitude]).addTo(map);
+
     mapIsReadyCallback(map);
   });
 
   return (
     <>
       <div className="map-container" ref={mapContainerElement} />
+      <div className="marker" ref={markerEl} />
     </>
   );
 }

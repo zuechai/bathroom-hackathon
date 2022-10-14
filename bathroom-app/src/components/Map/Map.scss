@@ -13,3 +13,11 @@
     margin: auto;
   }
 }
+
+.marker {
+  background-image: url("https://api.geoapify.com/v1/icon/?type=material&color=red&iconSize=small&apiKey=32307f34890140109ba99c2a2351665a");
+  height: 69px;
+  width: 47px;
+  background-size: contain;
+  cursor: pointer;
+}

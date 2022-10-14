@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Map.scss";
 import maplibre from "maplibre-gl";
 
@@ -9,6 +9,7 @@ export default function Map({
   latitude,
   zoom,
 }) {
+  const [map, setMap] = useState(null);
   const mapContainerElement = useRef();
   const markerEl = useRef();
 
@@ -16,23 +17,29 @@ export default function Map({
     const mapStyle =
       "https://maps.geoapify.com/v1/styles/osm-liberty/style.json";
 
-    const marker = new maplibre.Marker(markerEl.current, {
-      anchor: "bottom",
-      offset: [0, 6],
-    });
-
-    const map = new maplibre.Map({
+    const newMap = new maplibre.Map({
       container: mapContainerElement.current,
       style: `${mapStyle}?apiKey=${myAPIKey}`,
       center: [longitude, latitude],
       zoom: zoom,
     });
 
-    map.panTo([longitude, latitude]);
-    marker.setLngLat([longitude, latitude]).addTo(map);
+    setMap(newMap);
 
     mapIsReadyCallback(map);
-  });
+  }, []);
+
+  useEffect(() => {
+    const marker = new maplibre.Marker(markerEl.current, {
+      anchor: "bottom",
+      offset: [0, 6],
+    });
+
+    if (map) {
+      marker.setLngLat([longitude, latitude]).addTo(map);
+      map.panTo([longitude, latitude]);
+    }
+  }, [longitude, latitude]);
 
   return (
     <>

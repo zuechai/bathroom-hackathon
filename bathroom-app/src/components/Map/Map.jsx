@@ -7,7 +7,8 @@ export default function Map({ mapIsReadyCallback, longitude, latitude, zoom }) {
 
   useEffect(() => {
     const myAPIKey = "32307f34890140109ba99c2a2351665a";
-    const mapStyle = "https://maps.geoapify.com/v1/styles/osm-carto/style.json";
+    const mapStyle =
+      "https://maps.geoapify.com/v1/styles/osm-liberty/style.json";
 
     const map = new maplibre.Map({
       container: mapContainer,

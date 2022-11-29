@@ -11,30 +11,39 @@ import "./App.scss";
 
 function App() {
   const [isNewQuery, setIsNewQuery] = useState(true);
-  const [bathroom, setBathroom] = useState([]);
+  const [bathrooms, setBathrooms] = useState([]);
+  const [bathroomLocation, setBathroomLocation] = useState(null);
   const [longitude, setLongitude] = useState(-79.3954524);
   const [latitude, setLatitude] = useState(43.6457996);
   const [zoom, setZoom] = useState(17);
   const myAPIKey = "32307f34890140109ba99c2a2351665a";
 
+  const selectBathroomHandler = async (location) => {
+    setBathroomLocation({ ...location });
+  };
+
   useEffect(() => {
     if (isNewQuery) {
       fetchBathroom(longitude, latitude).then((resp) => {
-        setBathroom(resp.data);
+        setBathrooms(resp.data);
         setIsNewQuery(false);
       });
     }
-  }, [longitude, latitude]);
+  });
 
-  if (!bathroom) {
+  if (!bathrooms) {
     return <p>Loading...</p>;
   }
 
-  const queryHandler = (long, lat) => {
-    setLongitude(long);
-    setLatitude(lat);
-    setZoom(10);
-    setIsNewQuery(true);
+  const queryHandler = (lon, lat) => {
+    if (lon !== longitude || lat !== latitude) {
+      console.log("run queryHandler");
+      setLongitude(lon);
+      setLatitude(lat);
+      setBathroomLocation(null);
+      setZoom(10);
+      setIsNewQuery(true);
+    }
   };
 
   const mapIsReadyCallback = (map) => {
@@ -52,6 +61,7 @@ function App() {
           queryHandler={queryHandler}
           setLongitude={setLongitude}
           setLatitude={setLatitude}
+          setIsNewQuery={setIsNewQuery}
         />
         <div className="map__container">
           <div className="map__wrapper">
@@ -61,14 +71,15 @@ function App() {
               longitude={longitude}
               latitude={latitude}
               zoom={zoom}
+              isNewQuery={isNewQuery}
+              bathroomLocation={bathroomLocation}
             />
           </div>
         </div>
       </div>
       <Bathroom
-        bathroom={bathroom}
-        setLongitude={setLongitude}
-        setLatitude={setLatitude}
+        bathrooms={bathrooms}
+        selectBathroomHandler={selectBathroomHandler}
       />
     </main>
   );

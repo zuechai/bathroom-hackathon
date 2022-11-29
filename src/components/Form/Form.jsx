@@ -3,7 +3,13 @@ import axios from "axios";
 
 import "./Form.scss";
 
-export default function Form({ myAPIKey, setLongitude, setLatitude }) {
+export default function Form({
+  myAPIKey,
+  queryHandler,
+  setLongitude,
+  setLatitude,
+  setIsNewQuery,
+}) {
   const [address, setAddress] = useState("460 King St W, Toronto");
   const [addressIsValid, setAddressIsValid] = useState(false);
   const formEl = useRef();
@@ -20,19 +26,21 @@ export default function Form({ myAPIKey, setLongitude, setLatitude }) {
     }
     setAddress(formEl.current.address.value);
     setAddressIsValid(true);
+    setIsNewQuery(true);
   };
 
   useEffect(() => {
-    axios
-      .get(geocodingUrl)
-      .then((result) => result)
-      .then((featureCollection) => {
-        const location = featureCollection.data.features[0];
-        const { lon, lat } = location.properties;
-        setLongitude(lon);
-        setLatitude(lat);
-      });
-  }, [addressIsValid, geocodingUrl]);
+    if (addressIsValid) {
+      axios
+        .get(geocodingUrl)
+        .then((result) => result)
+        .then((featureCollection) => {
+          const location = featureCollection.data.features[0];
+          const { lon, lat } = location.properties;
+          queryHandler(lon, lat);
+        });
+    }
+  });
 
   return (
     <form className="form" ref={formEl} onSubmit={submitHandler}>

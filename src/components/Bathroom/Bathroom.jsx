@@ -1,26 +1,24 @@
 import "./Bathroom.scss";
 
-function Bathroom({ bathroom, setLongitude, setLatitude }) {
-  const bathroomHandler = (lon, lat) => {
-    setLongitude(lon);
-    setLatitude(lat);
-  };
-
+function Bathroom({ bathrooms, selectBathroomHandler }) {
   return (
     <div className="restrooms">
       <ul className="restrooms__list">
-        {bathroom.map((details) => {
+        {bathrooms.map((bathroom) => {
           return (
             <li
-              key={details.id}
+              key={bathroom.id}
               className="restrooms__item"
               style={{ cursor: "pointer" }}
               onClick={() =>
-                bathroomHandler(details.longitude, details.latitude)
+                selectBathroomHandler({
+                  lon: bathroom.longitude,
+                  lat: bathroom.latitude,
+                })
               }
             >
-              <h3 className="restrooms__header">{details.name}</h3>
-              <p>{details.street}</p>
+              <h3 className="restrooms__header">{bathroom.name}</h3>
+              <p>{bathroom.street}</p>
             </li>
           );
         })}

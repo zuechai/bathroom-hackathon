@@ -8,28 +8,34 @@ export default function Map({
   longitude,
   latitude,
   zoom,
+  isNewQuery,
+  bathroomLocation,
 }) {
   const [map, setMap] = useState(null);
   const mapContainerElement = useRef();
   const markerEl = useRef();
 
-  useEffect(() => {
+  const createNewMap = async () => {
     const mapStyle =
       "https://maps.geoapify.com/v1/styles/osm-liberty/style.json";
 
-    const newMap = new maplibre.Map({
-      container: mapContainerElement.current,
-      style: `${mapStyle}?apiKey=${myAPIKey}`,
-      center: [longitude, latitude],
-      zoom: zoom,
-    });
+    const newMap = new maplibre.Map(
+      {
+        container: mapContainerElement.current,
+        style: `${mapStyle}?apiKey=${myAPIKey}`,
+        center: [longitude, latitude],
+        zoom: zoom,
+      },
+      []
+    );
 
     setMap(newMap);
-
     mapIsReadyCallback(map);
-  }, []);
+  };
 
-  useEffect(() => {
+  console.log(bathroomLocation);
+
+  const setMarkerOnMap = async (longitude, latitude) => {
     const marker = new maplibre.Marker(markerEl.current, {
       anchor: "bottom",
       offset: [0, 6],
@@ -39,7 +45,20 @@ export default function Map({
       marker.setLngLat([longitude, latitude]).addTo(map);
       map.panTo([longitude, latitude]);
     }
-  }, [longitude, latitude]);
+  };
+
+  useEffect(() => {
+    if (!map) {
+      createNewMap();
+    }
+    if (bathroomLocation) {
+      setMarkerOnMap(bathroomLocation.lon, bathroomLocation.lat);
+    } else if (isNewQuery) {
+      setMarkerOnMap(longitude, latitude);
+    } else {
+      setMarkerOnMap(longitude, latitude);
+    }
+  });
 
   return (
     <>

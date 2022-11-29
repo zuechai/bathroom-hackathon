@@ -10,6 +10,7 @@ import logo from "./assests/black-logo.png";
 import "./App.scss";
 
 function App() {
+  const [isNewQuery, setIsNewQuery] = useState(true);
   const [bathroom, setBathroom] = useState([]);
   const [longitude, setLongitude] = useState(-79.3954524);
   const [latitude, setLatitude] = useState(43.6457996);
@@ -17,9 +18,12 @@ function App() {
   const myAPIKey = "32307f34890140109ba99c2a2351665a";
 
   useEffect(() => {
-    fetchBathroom(longitude, latitude).then((resp) => {
-      setBathroom(resp.data);
-    });
+    if (isNewQuery) {
+      fetchBathroom(longitude, latitude).then((resp) => {
+        setBathroom(resp.data);
+        setIsNewQuery(false);
+      });
+    }
   }, [longitude, latitude]);
 
   if (!bathroom) {
@@ -30,6 +34,7 @@ function App() {
     setLongitude(long);
     setLatitude(lat);
     setZoom(10);
+    setIsNewQuery(true);
   };
 
   const mapIsReadyCallback = (map) => {
@@ -61,7 +66,7 @@ function App() {
         </div>
       </div>
       <Bathroom
-        video={bathroom}
+        bathroom={bathroom}
         setLongitude={setLongitude}
         setLatitude={setLatitude}
       />

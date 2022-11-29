@@ -1,6 +1,6 @@
 import "./Bathroom.scss";
 
-function Bathroom({ video, setLongitude, setLatitude }) {
+function Bathroom({ bathroom, setLongitude, setLatitude }) {
   const bathroomHandler = (lon, lat) => {
     setLongitude(lon);
     setLatitude(lat);
@@ -9,7 +9,7 @@ function Bathroom({ video, setLongitude, setLatitude }) {
   return (
     <div className="restrooms">
       <ul className="restrooms__list">
-        {video.map((details) => {
+        {bathroom.map((details) => {
           return (
             <li
               key={details.id}

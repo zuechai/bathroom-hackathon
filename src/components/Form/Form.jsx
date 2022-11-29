@@ -40,7 +40,12 @@ export default function Form({ myAPIKey, setLongitude, setLatitude }) {
         <label className="form__label" htmlFor="address">
           Find a bathroom...
         </label>
-        <input className="form__input" type="address" name="address" />
+        <input
+          className="form__input"
+          type="address"
+          name="address"
+          defaultValue={address}
+        />
         <button className="form__btn">Geocode</button>
       </div>
     </form>

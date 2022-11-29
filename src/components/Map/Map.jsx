@@ -31,6 +31,7 @@ export default function Map({
 
     setMap(newMap);
     mapIsReadyCallback(map);
+    console.log(map);
   };
 
   console.log(bathroomLocation);
